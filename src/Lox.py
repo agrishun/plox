@@ -1,6 +1,6 @@
 import sys
 
-from Scanner import Scanner
+from .scanner import Scanner
 
 class Lox:
     hadError = False
@@ -8,10 +8,8 @@ class Lox:
     def run(self, string):
         if self.hadError:
             sys.exit(0)
-
         scanner = Scanner(string)
-        tokens = scanner.scanTokens()
-
+        tokens = scanner.scan_tokens()
         for token in tokens:
             print(token)
 
@@ -29,7 +27,7 @@ class Lox:
     def main(self):
         args_length = len(sys.argv)
         if args_length > 2:
-            print('Usage: plox [script]')
+            print('Usage: pylox [script]')
         elif args_length == 2:
             self.runFile(sys.argv[1])
         else:
@@ -42,9 +40,3 @@ class Lox:
     def report(self, line, where, message):
         print('[line {}] Error{}: {}'.format(line, where, message))
         self.hadError = True
-
-
-
-
-if __name__ == '__main__':
-    Lox().main()
